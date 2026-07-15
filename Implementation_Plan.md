@@ -53,6 +53,7 @@ The final system will have five specialized agents:
 ```
 
 **Capstone concepts demonstrated (minimum 3 required):**
+
 - Multi-agent system built with ADK ✓
 - MCP server integration (web search) ✓
 - Agent skills (reusable tool functions) ✓
@@ -462,7 +463,7 @@ print(json.dumps(result, indent=2))
 
 1. Create `skills/parse_jd.py`:
 
-```python
+````python
 """
 Skill: Parse Job Description
 Extracts structured information from raw JD text.
@@ -529,11 +530,11 @@ Return this exact JSON structure:
             "role_type": "unknown",
             "summary": "Failed to parse JD"
         }
-```
+````
 
 2. Create `skills/score_candidates.py`:
 
-```python
+````python
 """
 Skill: Score and Rank Candidates
 Combines TF-IDF matching with LLM-based semantic scoring.
@@ -632,11 +633,11 @@ Return this structure:
 
     except Exception as e:
         return {"error": str(e), "shortlist": top_candidates}
-```
+````
 
 3. Create `skills/draft_outreach.py`:
 
-```python
+````python
 """
 Skill: Draft Candidate Outreach
 Generates personalized outreach messages for shortlisted candidates.
@@ -711,11 +712,11 @@ Return:
             "message": f"Hi {candidate_name}, we think your background in {skills[0] if skills else 'your field'} could be a great fit for our {role_title} role. Would you be open to a quick chat?",
             "error": str(e)
         }
-```
+````
 
 4. Create `skills/detect_bias.py`:
 
-```python
+````python
 """
 Skill: Bias Detection Guardrail
 Flags discriminatory language in JDs and checks for skewed candidate rankings.
@@ -814,7 +815,7 @@ Return:
             "overall_assessment": f"LLM check failed: {str(e)}. Only pattern check was run.",
             "error": str(e)
         }
-```
+````
 
 5. Test all four skills end-to-end in a notebook. Use a real job description for testing (copy any SDE JD from LinkedIn).
 
@@ -1624,13 +1625,13 @@ Traditional ATS tools are keyword sieves — they rank by exact match and miss s
 
 HireFlow uses five specialized agents that collaborate:
 
-| Agent | Role | ADK Type |
-|---|---|---|
-| JD Analyst | Parses JD, extracts requirements | LlmAgent |
-| Bias Guardrail | Audits for discriminatory language | LlmAgent |
+| Agent          | Role                                | ADK Type       |
+| -------------- | ----------------------------------- | -------------- |
+| JD Analyst     | Parses JD, extracts requirements    | LlmAgent       |
+| Bias Guardrail | Audits for discriminatory language  | LlmAgent       |
 | Sourcing Agent | Searches web for candidates via MCP | LlmAgent + MCP |
-| Matcher Agent | Scores candidates (TF-IDF + LLM) | LlmAgent |
-| Outreach Agent | Drafts personalized messages | LlmAgent |
+| Matcher Agent  | Scores candidates (TF-IDF + LLM)    | LlmAgent       |
+| Outreach Agent | Drafts personalized messages        | LlmAgent       |
 
 ## Capstone Concepts Demonstrated
 
@@ -1649,13 +1650,13 @@ HireFlow uses five specialized agents that collaborate:
 
 ## Before vs After
 
-| Original Project | HireFlow |
-|---|---|
-| Static CSV upload | Live web sourcing via MCP |
-| TF-IDF only | TF-IDF + LLM semantic scoring |
+| Original Project   | HireFlow                            |
+| ------------------ | ----------------------------------- |
+| Static CSV upload  | Live web sourcing via MCP           |
+| TF-IDF only        | TF-IDF + LLM semantic scoring       |
 | Rule-based chatbot | Personalized LLM-generated outreach |
-| Single script | 5-agent ADK pipeline |
-| No safety checks | Bias guardrail agent |
+| Single script      | 5-agent ADK pipeline                |
+| No safety checks   | Bias guardrail agent                |
 
 ## Tech Stack
 
@@ -1743,12 +1744,12 @@ git push origin main
 
 ## What This Notebook Demonstrates
 
-| Concept | Where It Appears |
-|---|---|
+| Concept                                  | Where It Appears      |
+| ---------------------------------------- | --------------------- |
 | Multi-agent system (ADK SequentialAgent) | Section 3 + Section 7 |
-| MCP server (Google Search) | Section 4 |
-| Agent skills (4 reusable skills) | Section 5 |
-| Security feature (bias guardrail) | Section 6 |
+| MCP server (Google Search)               | Section 4             |
+| Agent skills (4 reusable skills)         | Section 5             |
+| Security feature (bias guardrail)        | Section 6             |
 
 **Kaggle badge and certificate will be awarded by end of July 2026.**
 ```
