@@ -28,3 +28,13 @@ The LLM agent relies heavily on the instructions provided in its prompt and the 
 **What is the difference between `SequentialAgent` and `LlmAgent`? Why is the orchestrator a `SequentialAgent` and not an `LlmAgent`? What would break if you made it an `LlmAgent`?**
 
 An `LlmAgent` is an autonomous decision-maker that uses an LLM to decide which tools to call and what to output based on its instructions. A `SequentialAgent` does not use an LLM directly to make decisions; instead, it enforces a strict, deterministic execution order across multiple sub-agents. The orchestrator is a `SequentialAgent` because we need a guaranteed pipeline: JD Analysis -> Bias Check -> Candidate Matching -> Outreach Drafting. If we made the orchestrator an `LlmAgent`, it might try to get creative and skip the bias check, run matching before parsing the JD, or draft outreach for candidates it hasn't scored yet. The `SequentialAgent` provides safety and predictability at the top level.
+
+## Day 6
+**Why do we test skills separately from agents? What makes agent tests harder to write and less reliable than unit tests?**
+
+Skills are standard, deterministic Python functions. We test them separately to ensure the underlying logic (like the TF-IDF math or JSON extraction structure) works perfectly. Agent tests, on the other hand, require a live LLM to interpret a prompt and generate a dynamic response. Because LLMs are non-deterministic, agent tests are inherently flaky—the model might phrase things differently each time, or occasionally skip a minor detail. This makes them much harder to write (you have to test for general concepts using `in` or regex rather than exact string matches) and less reliable. If a skill is broken, the agent will fail, so testing skills in isolation narrows down where the bug actually is.
+
+## Day 7
+**What is the biggest limitation of the current system? What would you add if you had 2 more weeks?**
+
+The biggest limitation of this system is that it currently operates entirely in-memory on static CSV data, without any persistent state tracking or real-world integrations. If I had two more weeks, I would integrate the MCP (Model Context Protocol) sourcing agent we skipped so it could actively search LinkedIn and GitHub for candidates, rather than relying on a static CSV. I would also hook it up to a proper Applicant Tracking System (ATS) API (like Greenhouse or Lever) to automatically move candidates between stages based on the LLM’s scores, and perhaps add a human-in-the-loop Slack integration for final approval before outreach emails are dispatched.
