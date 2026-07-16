@@ -1,5 +1,8 @@
-flask
+google-adk
+google-generativeai
+python-dotenv
 scikit-learn
 pandas
 numpy
-gunicorn
+flask
+pytest
