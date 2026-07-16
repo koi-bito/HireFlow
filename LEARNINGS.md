@@ -23,3 +23,8 @@ In Google ADK, the docstring acts as the tool's "API documentation" for the LLM.
 **You have two tools in the JD Analyst agent. How does the agent decide which to call first? What would happen if it called them in the wrong order?**
 
 The LLM agent relies heavily on the instructions provided in its prompt and the semantic meaning of the tool descriptions. In the `instruction` field of the `jd_analyst_agent`, we explicitly listed steps: "1. Call parse_job_description... 2. Call detect_bias_in_jd...". The LLM understands these textual step-by-step guidelines and plans its tool calls accordingly. If it were to call them in the wrong order, it might try to summarize the requirements before it actually parses them, resulting in a hallucinated or empty summary.
+
+## Day 5
+**What is the difference between `SequentialAgent` and `LlmAgent`? Why is the orchestrator a `SequentialAgent` and not an `LlmAgent`? What would break if you made it an `LlmAgent`?**
+
+An `LlmAgent` is an autonomous decision-maker that uses an LLM to decide which tools to call and what to output based on its instructions. A `SequentialAgent` does not use an LLM directly to make decisions; instead, it enforces a strict, deterministic execution order across multiple sub-agents. The orchestrator is a `SequentialAgent` because we need a guaranteed pipeline: JD Analysis -> Bias Check -> Candidate Matching -> Outreach Drafting. If we made the orchestrator an `LlmAgent`, it might try to get creative and skip the bias check, run matching before parsing the JD, or draft outreach for candidates it hasn't scored yet. The `SequentialAgent` provides safety and predictability at the top level.
