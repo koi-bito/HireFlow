@@ -1,4 +1,4 @@
-# HireFlow v2 — 7-Day Implementation Plan
+# HireFlow — 7-Day Implementation Plan
 
 > **Goal:** Rebuild HireFlow from a broken Flask prototype into a working 5-agent ADK pipeline.
 > **Start:** Day 1 | **End:** Day 7
@@ -1258,7 +1258,7 @@ handle everything from JD analysis to personalized outreach drafts.
 
 ## What Changed vs the Original
 
-| Original | HireFlow v2 |
+| Original | HireFlow (Rebuilt) |
 |---|---|
 | 9-line TF-IDF script | TF-IDF + LLM semantic scoring combined |
 | Rule-based chatbot | Personalized LLM-generated outreach per candidate |
