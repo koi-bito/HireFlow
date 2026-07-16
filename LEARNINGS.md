@@ -18,3 +18,8 @@ ame, match_score, skills), the LLM can easily interpret who the best candidate i
 **Why does the docstring matter so much in ADK tools? What happens if the docstring is vague?**
 
 In Google ADK, the docstring acts as the tool's "API documentation" for the LLM. Unlike traditional code where a developer reads the docstring, the LLM reads it at runtime to understand what the function does, what arguments it requires, and when it is appropriate to use it. If the docstring is vague, the LLM might hallucinate arguments, fail to call the tool when it should, or call it at the wrong time (e.g., trying to draft outreach before candidates are even scored). A precise, descriptive docstring is essentially the prompt that controls the tool's usage.
+
+## Day 4
+**You have two tools in the JD Analyst agent. How does the agent decide which to call first? What would happen if it called them in the wrong order?**
+
+The LLM agent relies heavily on the instructions provided in its prompt and the semantic meaning of the tool descriptions. In the `instruction` field of the `jd_analyst_agent`, we explicitly listed steps: "1. Call parse_job_description... 2. Call detect_bias_in_jd...". The LLM understands these textual step-by-step guidelines and plans its tool calls accordingly. If it were to call them in the wrong order, it might try to summarize the requirements before it actually parses them, resulting in a hallucinated or empty summary.
