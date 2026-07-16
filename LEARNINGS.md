@@ -11,7 +11,7 @@ A `SequentialAgent` is like a manager orchestrating an assembly line. It doesn't
 **Why does the tool return dict instead of a numpy array? What would break if you returned the numpy array directly?**
 
 ADK tools are executed by an LLM agent which requires text-based, structured context to 'understand' the tool's output. An LLM cannot process a raw numerical 
-umpy array object natively—it just sees unstructured numbers. By returning a well-structured dict with named fields (like 
+umpy array object nativelyâ€”it just sees unstructured numbers. By returning a well-structured dict with named fields (like 
 ame, match_score, skills), the LLM can easily interpret who the best candidate is and why, allowing it to reason about the next steps. If we returned a numpy array directly, the LLM would likely fail to parse the meaning of the data, break the orchestration flow, or hallucinate an interpretation.
 
 ## Day 3
