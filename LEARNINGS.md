@@ -13,3 +13,8 @@ A `SequentialAgent` is like a manager orchestrating an assembly line. It doesn't
 ADK tools are executed by an LLM agent which requires text-based, structured context to 'understand' the tool's output. An LLM cannot process a raw numerical 
 umpy array object natively—it just sees unstructured numbers. By returning a well-structured dict with named fields (like 
 ame, match_score, skills), the LLM can easily interpret who the best candidate is and why, allowing it to reason about the next steps. If we returned a numpy array directly, the LLM would likely fail to parse the meaning of the data, break the orchestration flow, or hallucinate an interpretation.
+
+## Day 3
+**Why does the docstring matter so much in ADK tools? What happens if the docstring is vague?**
+
+In Google ADK, the docstring acts as the tool's "API documentation" for the LLM. Unlike traditional code where a developer reads the docstring, the LLM reads it at runtime to understand what the function does, what arguments it requires, and when it is appropriate to use it. If the docstring is vague, the LLM might hallucinate arguments, fail to call the tool when it should, or call it at the wrong time (e.g., trying to draft outreach before candidates are even scored). A precise, descriptive docstring is essentially the prompt that controls the tool's usage.
