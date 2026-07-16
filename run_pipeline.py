@@ -50,7 +50,8 @@ runner = Runner(
     app_name="hireflow",
     session_service=session_service
 )
-session = session_service.create_session(app_name="hireflow", user_id="recruiter")
+import asyncio
+session = asyncio.run(session_service.create_session(app_name="hireflow", user_id="recruiter"))
 message = types.Content(role="user", parts=[types.Part(text=input_text)])
 
 print("Running HireFlow pipeline...\n")
