@@ -2,7 +2,6 @@
 
 > **Goal:** Rebuild HireFlow from a broken Flask prototype into a working 5-agent ADK pipeline.
 > **Start:** Day 1 | **End:** Day 7
-> **After this:** Start the LLM Evaluation Framework immediately.
 
 ---
 
@@ -1362,9 +1361,7 @@ git push
 
 ## After Day 7
 
-Open `LLM_EVAL_SPEC.md` — the spec we wrote earlier. Start with `evaluator/scorers/base.py`. That's your next project.
-
-HireFlow is done. Move forward.
+HireFlow is done. Great job on completing the 7-day challenge!
 
 ---
 
