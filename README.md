@@ -1,7 +1,7 @@
-# HireFlow — Multi-Agent Recruitment System
+# HireFlow - Multi-Agent Recruitment System
 
 A multi-agent recruitment intelligence system built on Google ADK.
-Paste a job description and a candidate list — five specialized agents
+Paste a job description and a candidate list - five specialized agents
 handle everything from JD analysis to personalized outreach drafts.
 
 ---
@@ -107,7 +107,7 @@ hireflow/
 ## Context
 
 Started as a Flask + TF-IDF prototype. Rebuilt as a multi-agent system to
-explore Google ADK's agent orchestration patterns — specifically how a
+explore Google ADK's agent orchestration patterns - specifically how a
 `SequentialAgent` coordinates specialized `LlmAgent` instances, and how
 reusable skill functions let agents share capabilities without coupling.
 The bias guardrail agent was added as a practical safety layer: discriminatory
