@@ -1,13 +1,13 @@
-"""
+﻿"""
 agents/interview_scheduler.py
 ------------------------------
-Agent 4 — Interview Scheduler
+Agent 4 - Interview Scheduler
 
 Reads state["ranked_candidates"] (specifically strong_match and partial_match
 candidates) and generates 3 structured interview slot options per candidate
 across the next 5 business days.
 
-Dates are computed deterministically with Python datetime — the LLM is NOT
+Dates are computed deterministically with Python datetime - the LLM is NOT
 used for date logic to avoid hallucinations.  The LLM is optionally used to
 generate a brief personalised scheduling note per candidate.
 
@@ -87,14 +87,14 @@ def _generate_note(candidate: dict) -> str:
         response = _client.models.generate_content(model=_MODEL_NAME, contents=prompt)
         return response.text.strip()
     except Exception as exc:  # noqa: BLE001
-        logger.warning("Interview Scheduler: note generation failed for %s — %s", candidate["name"], exc)
+        logger.warning("Interview Scheduler: note generation failed for %s - %s", candidate["name"], exc)
         flag = candidate.get("flag", "partial_match")
-        return "Strong candidate — prioritise scheduling." if flag == "strong_match" else "Good fit — schedule at convenience."
+        return "Strong candidate - prioritise scheduling." if flag == "strong_match" else "Good fit - schedule at convenience."
 
 
 def run_interview_scheduler(state: HireFlowState) -> dict:
     """
-    LangGraph node function for Agent 4 — Interview Scheduler.
+    LangGraph node function for Agent 4 - Interview Scheduler.
 
     Args:
         state: The current HireFlowState.

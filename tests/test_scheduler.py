@@ -1,7 +1,7 @@
-"""
+﻿"""
 tests/test_scheduler.py
 ------------------------
-Unit tests for Agent 4 — Interview Scheduler.
+Unit tests for Agent 4 - Interview Scheduler.
 """
 
 from datetime import date
@@ -72,7 +72,7 @@ def test_business_days_count():
 def test_schedule_contains_required_keys(mock_model):
     """Each schedule entry must have candidate_name, email, flag, slots, notes."""
     mock_response = MagicMock()
-    mock_response.text = "Strong candidate — prioritise scheduling."
+    mock_response.text = "Strong candidate - prioritise scheduling."
     mock_model.models.generate_content.return_value = mock_response
 
     result = run_interview_scheduler(_make_state())

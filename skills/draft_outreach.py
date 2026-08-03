@@ -1,4 +1,4 @@
-"""
+﻿"""
 Skill: Draft Candidate Outreach
 Generates personalized outreach messages per candidate.
 """
@@ -65,7 +65,7 @@ Return:
         return json.loads(raw.strip())
     except Exception as e:
         return {
-            "subject": f"{role_title} — Would love to connect",
+            "subject": f"{role_title} - Would love to connect",
             "message": f"Hi {candidate_name}, your background in {skills[0] if skills else 'your field'} looks like a strong fit for our {role_title} role. Open to a quick chat?",
             "error": str(e)
         }

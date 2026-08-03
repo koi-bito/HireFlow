@@ -1,7 +1,7 @@
-"""
+﻿"""
 agents/outreach_composer.py
 ----------------------------
-Agent 3 — Outreach Composer
+Agent 3 - Outreach Composer
 
 Reads state["ranked_candidates"] and state["parsed_jd"], then prompts
 Gemini to write a personalised outreach email for each of the top N
@@ -30,7 +30,7 @@ _MAX_CANDIDATES = int(os.getenv("OUTREACH_MAX_CANDIDATES", "5"))
 
 _client = genai.Client(api_key=_API_KEY)
 
-_OUTREACH_PROMPT = """Write a professional recruiter outreach email for this candidate. The tone should be warm and human — not a generic template blast. Reference at least one of their specific strengths listed below. Keep the email under 200 words. Return ONLY valid JSON with no other text or markdown:
+_OUTREACH_PROMPT = """Write a professional recruiter outreach email for this candidate. The tone should be warm and human - not a generic template blast. Reference at least one of their specific strengths listed below. Keep the email under 200 words. Return ONLY valid JSON with no other text or markdown:
 {{
   "subject": "email subject line",
   "body": "full email body"
@@ -64,7 +64,7 @@ def _compose_outreach(candidate: dict, job_title: str) -> dict:
             "body": result.get("body", ""),
         }
     except Exception as exc:  # noqa: BLE001
-        logger.warning("Outreach Composer: LLM call failed for %s — %s", candidate["name"], exc)
+        logger.warning("Outreach Composer: LLM call failed for %s - %s", candidate["name"], exc)
         return {
             "subject": f"Opportunity: {job_title}",
             "body": (
@@ -77,7 +77,7 @@ def _compose_outreach(candidate: dict, job_title: str) -> dict:
 
 def run_outreach_composer(state: HireFlowState) -> dict:
     """
-    LangGraph node function for Agent 3 — Outreach Composer.
+    LangGraph node function for Agent 3 - Outreach Composer.
 
     Args:
         state: The current HireFlowState.
@@ -91,7 +91,7 @@ def run_outreach_composer(state: HireFlowState) -> dict:
     job_title: str = parsed_jd.get("job_title", "Open Position")
 
     if not ranked_candidates:
-        errors.append("Outreach Composer: no ranked candidates found — skipping.")
+        errors.append("Outreach Composer: no ranked candidates found - skipping.")
         logger.warning("Outreach Composer: ranked_candidates is empty.")
         return {"outreach_messages": [], "errors": errors}
 

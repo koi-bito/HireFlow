@@ -1,19 +1,19 @@
-# HireFlow — Multi-Agent Recruitment System
+﻿# HireFlow - Multi-Agent Recruitment System
 ## Implementation Plan: Rebuild with Google ADK + LangGraph
 
-> **Context:** HireFlow was originally a Flask + TF-IDF prototype for candidate matching and chatbot simulation. This plan covers the full rebuild into a production multi-agent recruitment system using Google ADK and LangGraph. The target architecture — as described in the portfolio and resume — is a `SequentialAgent` orchestrating four specialised `LlmAgent`s: JD Parser, Candidate Matcher, Outreach Composer, and Interview Scheduler.
+> **Context:** HireFlow was originally a Flask + TF-IDF prototype for candidate matching and chatbot simulation. This plan covers the full rebuild into a production multi-agent recruitment system using Google ADK and LangGraph. The target architecture - as described in the portfolio and resume - is a `SequentialAgent` orchestrating four specialised `LlmAgent`s: JD Parser, Candidate Matcher, Outreach Composer, and Interview Scheduler.
 
 ---
 
 ## Current State (Old Flask Prototype)
 
 ```
-app.py          — Flask routes + CSV upload handling
-matcher.py      — TF-IDF + cosine similarity scoring
-chatbot.py      — Rule-based chat simulation
-data/           — Sample candidate CSVs
-templates/      — HTML UI
-static/         — CSS
+app.py          - Flask routes + CSV upload handling
+matcher.py      - TF-IDF + cosine similarity scoring
+chatbot.py      - Rule-based chat simulation
+data/           - Sample candidate CSVs
+templates/      - HTML UI
+static/         - CSS
 ```
 
 The old code is kept on a `legacy` branch. The `main` branch will hold the new multi-agent rebuild.
@@ -62,7 +62,7 @@ User Input (JD + Candidate Profiles)
 
 ---
 
-## Phase 0 — Repository Cleanup & Setup
+## Phase 0 - Repository Cleanup & Setup
 
 **Goal:** Clean slate, proper structure, old code preserved.
 
@@ -119,7 +119,7 @@ HireFlow/
 
 ---
 
-## Phase 1 — Shared State Schema
+## Phase 1 - Shared State Schema
 
 **Goal:** Define what data flows between agents. Every agent reads from and writes to this shared state object.
 
@@ -154,7 +154,7 @@ class HireFlowState(TypedDict):
 
 ---
 
-## Phase 2 — Agent 1: JD Parser
+## Phase 2 - Agent 1: JD Parser
 
 **Goal:** Take raw job description text → structured dictionary of requirements.
 
@@ -167,7 +167,7 @@ class HireFlowState(TypedDict):
 
 **Key implementation notes:**
 - Use `google.generativeai` with a structured output prompt
-- Instruct the model to return only valid JSON — parse with `json.loads()`, handle failures gracefully
+- Instruct the model to return only valid JSON - parse with `json.loads()`, handle failures gracefully
 - If parsing fails, write error to `state["errors"]` and return safe defaults so the pipeline doesn't crash
 
 **Sample prompt structure:**
@@ -194,7 +194,7 @@ JD:
 
 ---
 
-## Phase 3 — Agent 2: Candidate Matcher
+## Phase 3 - Agent 2: Candidate Matcher
 
 **Goal:** Given `parsed_jd` and a CSV of candidates, return a ranked shortlist with match scores and reasons.
 
@@ -206,8 +206,8 @@ JD:
 - For each candidate, constructs a text representation, runs NLP similarity against the parsed JD using LLM scoring
 - Returns top N candidates ranked by score, with per-candidate match reasons
 
-**Scoring approach — two-step:**
-1. **Keyword overlap (fast pre-filter):** check `required_skills` against candidate `skills` field — compute a simple overlap ratio to filter out clearly unqualified candidates
+**Scoring approach - two-step:**
+1. **Keyword overlap (fast pre-filter):** check `required_skills` against candidate `skills` field - compute a simple overlap ratio to filter out clearly unqualified candidates
 2. **LLM scoring (depth pass):** for candidates passing the pre-filter, prompt Gemini to score the overall fit (0–100) and list top 3 match reasons
 
 **Sample LLM scoring prompt:**
@@ -241,7 +241,7 @@ Candidate profile:
 
 ---
 
-## Phase 4 — Agent 3: Outreach Composer
+## Phase 4 - Agent 3: Outreach Composer
 
 **Goal:** Write a personalised outreach email/message for each candidate in the ranked shortlist.
 
@@ -253,7 +253,7 @@ Candidate profile:
 - Output: subject line + email body, referencing specific match reasons and the role
 
 **Key implementation notes:**
-- Tone should be professional but human — not a template blast
+- Tone should be professional but human - not a template blast
 - Reference at least one specific match reason per message to make it feel personalised
 - Keep emails under 200 words
 
@@ -280,7 +280,7 @@ Why they're a match: {match_reasons}
 
 ---
 
-## Phase 5 — Agent 4: Interview Scheduler
+## Phase 5 - Agent 4: Interview Scheduler
 
 **Goal:** For top shortlisted candidates, generate interview slot suggestions and structured scheduling output.
 
@@ -294,7 +294,7 @@ Why they're a match: {match_reasons}
 **Key implementation notes:**
 - Use Python `datetime` to compute actual dates, don't hallucinate dates
 - LLM is only used to generate a brief scheduling note per candidate if needed
-- This agent is intentionally lightweight — its job is structured output, not reasoning
+- This agent is intentionally lightweight - its job is structured output, not reasoning
 
 **Output written to `state["schedule"]`:**
 ```python
@@ -314,7 +314,7 @@ Why they're a match: {match_reasons}
 
 ---
 
-## Phase 6 — LangGraph Pipeline (SequentialAgent)
+## Phase 6 - LangGraph Pipeline (SequentialAgent)
 
 **Goal:** Wire all four agents into a LangGraph StateGraph with sequential execution.
 
@@ -354,7 +354,7 @@ pipeline = build_pipeline()
 
 ---
 
-## Phase 7 — FastAPI Entry Point
+## Phase 7 - FastAPI Entry Point
 
 **Goal:** Expose the pipeline as an API so it's not just a script.
 
@@ -388,7 +388,7 @@ pipeline = build_pipeline()
 
 ---
 
-## Phase 8 — Tests
+## Phase 8 - Tests
 
 **Goal:** Every agent has at least 3 tests. Pipeline has an integration test.
 
@@ -405,16 +405,16 @@ Run with: `pytest tests/ -v`
 
 ---
 
-## Phase 9 — README Update
+## Phase 9 - README Update
 
 The README should match the portfolio description exactly. Key sections to include:
 
-- **What it does** — one clear paragraph matching portfolio copy
-- **Architecture diagram** — ASCII or Mermaid, matching the 4-agent flow
-- **Tech stack** — Google ADK, LangGraph, Gemini, FastAPI, pandas, pytest
-- **How to run locally** — `.env` setup, `uvicorn app:app --reload`
-- **API usage** — sample curl for `POST /run`
-- **Agent breakdown** — brief description of each of the 4 agents
+- **What it does** - one clear paragraph matching portfolio copy
+- **Architecture diagram** - ASCII or Mermaid, matching the 4-agent flow
+- **Tech stack** - Google ADK, LangGraph, Gemini, FastAPI, pandas, pytest
+- **How to run locally** - `.env` setup, `uvicorn app:app --reload`
+- **API usage** - sample curl for `POST /run`
+- **Agent breakdown** - brief description of each of the 4 agents
 
 ---
 
@@ -424,10 +424,10 @@ The README should match the portfolio description exactly. Key sections to inclu
 |-------|-------------|--------|
 | 0 | Repo cleanup & structure | ⬜ Not started |
 | 1 | Shared state schema | ⬜ Not started |
-| 2 | Agent 1 — JD Parser | ⬜ Not started |
-| 3 | Agent 2 — Candidate Matcher | ⬜ Not started |
-| 4 | Agent 3 — Outreach Composer | ⬜ Not started |
-| 5 | Agent 4 — Interview Scheduler | ⬜ Not started |
+| 2 | Agent 1 - JD Parser | ⬜ Not started |
+| 3 | Agent 2 - Candidate Matcher | ⬜ Not started |
+| 4 | Agent 3 - Outreach Composer | ⬜ Not started |
+| 5 | Agent 4 - Interview Scheduler | ⬜ Not started |
 | 6 | LangGraph pipeline wiring | ⬜ Not started |
 | 7 | FastAPI entry point | ⬜ Not started |
 | 8 | Tests | ⬜ Not started |
@@ -437,7 +437,7 @@ The README should match the portfolio description exactly. Key sections to inclu
 
 ## Notes
 
-- Use `gemini-1.5-flash` by default — fast and cheap for prototyping. Switch to `gemini-1.5-pro` for better reasoning on matcher and outreach if quality is lacking.
+- Use `gemini-1.5-flash` by default - fast and cheap for prototyping. Switch to `gemini-1.5-pro` for better reasoning on matcher and outreach if quality is lacking.
 - All LLM calls should use structured output prompts with explicit JSON instructions. Never parse free-form text.
-- The `errors` list in state is your debug trail — log it on every run.
+- The `errors` list in state is your debug trail - log it on every run.
 - When the rebuild is done, update the portfolio's HireFlow GitHub link and confirm the repo README matches the card description word-for-word on the key claims (4 agents, SequentialAgent, Google ADK, LangGraph).

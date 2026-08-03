@@ -1,4 +1,4 @@
-"""
+﻿"""
 Skill: Score and Rank Candidates
 Combines TF-IDF matching with LLM semantic scoring.
 """
@@ -25,7 +25,7 @@ def score_and_rank_candidates(job_description: str, candidates_json: str) -> dic
                          'name' (str) and 'skills' (list of str).
 
     Returns:
-        Dict with 'shortlist' — top candidates with tfidf_score, llm_score,
+        Dict with 'shortlist' - top candidates with tfidf_score, llm_score,
         combined_score, and fit_reason.
     """
     tfidf_result = match_candidates_to_jd(job_description, candidates_json)

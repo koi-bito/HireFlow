@@ -1,4 +1,4 @@
-# HireFlow — Multi-Agent Recruitment System
+﻿# HireFlow - Multi-Agent Recruitment System
 
 > A production-grade, multi-agent AI pipeline that automates end-to-end recruitment workflows using **Google ADK**, **LangGraph**, and **Gemini**.
 
@@ -6,7 +6,7 @@
 
 ## What It Does
 
-HireFlow takes a raw job description and a pool of candidate profiles and runs them through four specialised AI agents in sequence. It outputs a ranked shortlist of candidates, personalised outreach emails, and structured interview schedules — all with a single API call.
+HireFlow takes a raw job description and a pool of candidate profiles and runs them through four specialised AI agents in sequence. It outputs a ranked shortlist of candidates, personalised outreach emails, and structured interview schedules - all with a single API call.
 
 ---
 
@@ -91,16 +91,16 @@ HireFlow/
 
 ## Agent Breakdown
 
-### Agent 1 — JD Parser
+### Agent 1 - JD Parser
 Receives raw job description text and prompts Gemini to extract structured fields: job title, required skills, preferred skills, years of experience, location, salary range, and employment type. Returns clean JSON, with safe defaults on failure.
 
-### Agent 2 — Candidate Matcher
+### Agent 2 - Candidate Matcher
 Loads candidate profiles from a CSV and runs a two-step scoring process: a fast keyword overlap pre-filter followed by an LLM scoring pass (0–100) with per-candidate match reasons and a `strong_match / partial_match / weak_match` flag.
 
-### Agent 3 — Outreach Composer
-For each top candidate (up to 5), prompts Gemini to write a personalised, under-200-word outreach email that references specific match reasons — not a generic template.
+### Agent 3 - Outreach Composer
+For each top candidate (up to 5), prompts Gemini to write a personalised, under-200-word outreach email that references specific match reasons - not a generic template.
 
-### Agent 4 — Interview Scheduler
+### Agent 4 - Interview Scheduler
 Generates 3 concrete interview slot options per `strong_match` and `partial_match` candidate using Python `datetime` (no LLM date hallucination). Outputs calendar-ready structured data.
 
 ---
@@ -192,13 +192,13 @@ curl http://localhost:8000/results/{run_id}
 pytest tests/ -v
 ```
 
-Tests use mocked Gemini API calls — no API key required to run the test suite.
+Tests use mocked Gemini API calls - no API key required to run the test suite.
 
 ---
 
 ## Notes
 
 - Uses `gemini-1.5-flash` by default (fast and cost-efficient). Switch to `gemini-1.5-pro` via the `MODEL_NAME` env var for better reasoning quality on complex JDs.
-- All LLM calls use structured JSON output prompts — no free-form text parsing.
-- The `errors` list in each response is your debug trail — check it if results look incomplete.
+- All LLM calls use structured JSON output prompts - no free-form text parsing.
+- The `errors` list in each response is your debug trail - check it if results look incomplete.
 - The `legacy` branch preserves the original Flask + TF-IDF prototype.

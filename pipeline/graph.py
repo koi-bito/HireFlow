@@ -1,7 +1,7 @@
-"""
+﻿"""
 pipeline/graph.py
 -----------------
-LangGraph SequentialAgent — wires all four HireFlow agents into a
+LangGraph SequentialAgent - wires all four HireFlow agents into a
 StateGraph that executes them in order:
 
   jd_parser → candidate_matcher → outreach_composer → interview_scheduler
@@ -38,5 +38,5 @@ def build_pipeline() -> StateGraph:
     return graph.compile()
 
 
-# Module-level compiled pipeline — import and call .invoke() directly
+# Module-level compiled pipeline - import and call .invoke() directly
 pipeline = build_pipeline()

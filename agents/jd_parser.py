@@ -1,7 +1,7 @@
-"""
+﻿"""
 agents/jd_parser.py
 --------------------
-Agent 1 — JD Parser
+Agent 1 - JD Parser
 
 Receives raw job description text from state["raw_jd"], prompts Gemini to
 extract structured requirements, and writes the result to state["parsed_jd"].
@@ -34,13 +34,13 @@ _client = genai.Client(api_key=_API_KEY)
 _PROMPT_TEMPLATE = """You are a recruitment data extractor. Given the job description below, extract the following fields and return ONLY valid JSON with no other text, markdown, or explanation:
 
 {{
-  "job_title": "string — the role title",
+  "job_title": "string - the role title",
   "required_skills": ["list", "of", "must-have", "skills"],
   "preferred_skills": ["list", "of", "nice-to-have", "skills"],
   "years_of_experience": "string e.g. '3-5 years'",
-  "location": "string — city/remote/etc",
-  "salary_range": "string — if mentioned, else null",
-  "employment_type": "string — full-time/part-time/contract/etc"
+  "location": "string - city/remote/etc",
+  "salary_range": "string - if mentioned, else null",
+  "employment_type": "string - full-time/part-time/contract/etc"
 }}
 
 Job Description:
@@ -68,7 +68,7 @@ def _extract_json(text: str) -> dict:
 
 def run_jd_parser(state: HireFlowState) -> dict:
     """
-    LangGraph node function for Agent 1 — JD Parser.
+    LangGraph node function for Agent 1 - JD Parser.
 
     Args:
         state: The current HireFlowState.
@@ -80,7 +80,7 @@ def run_jd_parser(state: HireFlowState) -> dict:
     errors: list = list(state.get("errors", []))
 
     if not raw_jd:
-        errors.append("JD Parser: raw_jd is empty — skipping LLM call.")
+        errors.append("JD Parser: raw_jd is empty - skipping LLM call.")
         logger.warning("JD Parser: raw_jd is empty.")
         return {"parsed_jd": _SAFE_DEFAULT.copy(), "errors": errors}
 
@@ -100,13 +100,13 @@ def run_jd_parser(state: HireFlowState) -> dict:
         return {"parsed_jd": parsed, "errors": errors}
 
     except json.JSONDecodeError as exc:
-        msg = f"JD Parser: JSON decode error — {exc}"
+        msg = f"JD Parser: JSON decode error - {exc}"
         logger.error(msg)
         errors.append(msg)
         return {"parsed_jd": _SAFE_DEFAULT.copy(), "errors": errors}
 
     except Exception as exc:  # noqa: BLE001
-        msg = f"JD Parser: unexpected error — {exc}"
+        msg = f"JD Parser: unexpected error - {exc}"
         logger.exception(msg)
         errors.append(msg)
         return {"parsed_jd": _SAFE_DEFAULT.copy(), "errors": errors}

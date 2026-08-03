@@ -1,12 +1,12 @@
-"""
+﻿"""
 app.py
 ------
 FastAPI entry point for the HireFlow multi-agent recruitment pipeline.
 
 Endpoints:
-  GET  /health            — health check
-  POST /run               — run the full 4-agent pipeline
-  GET  /results/{run_id}  — retrieve a previous run's output (in-memory store)
+  GET  /health            - health check
+  POST /run               - run the full 4-agent pipeline
+  GET  /results/{run_id}  - retrieve a previous run's output (in-memory store)
 """
 
 import base64
@@ -81,7 +81,7 @@ def _resolve_csv_path(request: RunRequest) -> str:
             logger.info("Wrote uploaded CSV to %s", tmp_path)
             return tmp_path
         except Exception as exc:
-            logger.warning("Could not decode base64 CSV — using sample. Error: %s", exc)
+            logger.warning("Could not decode base64 CSV - using sample. Error: %s", exc)
 
     return "data/sample_candidates.csv"
 

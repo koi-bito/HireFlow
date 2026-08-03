@@ -1,9 +1,9 @@
-# HireFlow Learnings
+﻿# HireFlow Learnings
 
 ## Day 1
 **What is the difference between an LlmAgent and a SequentialAgent? When would you use each?**
 
-An `LlmAgent` is essentially a single "brain" powered by a large language model. It takes an instruction, looks at the tools available to it, and figures out how to answer the user's prompt by calling those tools autonomously. You use an `LlmAgent` for a specific, narrow job—like checking for bias or parsing a document.
+An `LlmAgent` is essentially a single "brain" powered by a large language model. It takes an instruction, looks at the tools available to it, and figures out how to answer the user's prompt by calling those tools autonomously. You use an `LlmAgent` for a specific, narrow job-like checking for bias or parsing a document.
 
 A `SequentialAgent` is like a manager orchestrating an assembly line. It doesn't do the deep thinking itself; instead, it passes data from one agent to the next in a strict, predefined order. You use a `SequentialAgent` when you have a multi-step process (like our HireFlow pipeline) where the output of one specialized `LlmAgent` needs to become the input for the next one, without them stepping on each other's toes.
 
@@ -11,7 +11,7 @@ A `SequentialAgent` is like a manager orchestrating an assembly line. It doesn't
 **Why does the tool return dict instead of a numpy array? What would break if you returned the numpy array directly?**
 
 ADK tools are executed by an LLM agent which requires text-based, structured context to 'understand' the tool's output. An LLM cannot process a raw numerical 
-umpy array object natively—it just sees unstructured numbers. By returning a well-structured dict with named fields (like 
+umpy array object natively-it just sees unstructured numbers. By returning a well-structured dict with named fields (like 
 ame, match_score, skills), the LLM can easily interpret who the best candidate is and why, allowing it to reason about the next steps. If we returned a numpy array directly, the LLM would likely fail to parse the meaning of the data, break the orchestration flow, or hallucinate an interpretation.
 
 ## Day 3
@@ -32,7 +32,7 @@ An `LlmAgent` is an autonomous decision-maker that uses an LLM to decide which t
 ## Day 6
 **Why do we test skills separately from agents? What makes agent tests harder to write and less reliable than unit tests?**
 
-Skills are standard, deterministic Python functions. We test them separately to ensure the underlying logic (like the TF-IDF math or JSON extraction structure) works perfectly. Agent tests, on the other hand, require a live LLM to interpret a prompt and generate a dynamic response. Because LLMs are non-deterministic, agent tests are inherently flaky—the model might phrase things differently each time, or occasionally skip a minor detail. This makes them much harder to write (you have to test for general concepts using `in` or regex rather than exact string matches) and less reliable. If a skill is broken, the agent will fail, so testing skills in isolation narrows down where the bug actually is.
+Skills are standard, deterministic Python functions. We test them separately to ensure the underlying logic (like the TF-IDF math or JSON extraction structure) works perfectly. Agent tests, on the other hand, require a live LLM to interpret a prompt and generate a dynamic response. Because LLMs are non-deterministic, agent tests are inherently flaky-the model might phrase things differently each time, or occasionally skip a minor detail. This makes them much harder to write (you have to test for general concepts using `in` or regex rather than exact string matches) and less reliable. If a skill is broken, the agent will fail, so testing skills in isolation narrows down where the bug actually is.
 
 ## Day 7
 **What is the biggest limitation of the current system? What would you add if you had 2 more weeks?**

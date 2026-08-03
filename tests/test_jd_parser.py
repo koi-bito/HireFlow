@@ -1,7 +1,7 @@
-"""
+﻿"""
 tests/test_jd_parser.py
 ------------------------
-Unit tests for Agent 1 — JD Parser.
+Unit tests for Agent 1 - JD Parser.
 
 These tests use mocking to avoid real API calls, ensuring CI can run
 without a GOOGLE_API_KEY.

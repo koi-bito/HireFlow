@@ -1,13 +1,13 @@
-"""
+﻿"""
 agents/candidate_matcher.py
 ----------------------------
-Agent 2 — Candidate Matcher
+Agent 2 - Candidate Matcher
 
 Reads the parsed JD from state["parsed_jd"] and a candidates CSV from
 state["candidates_csv_path"].  Uses a two-step approach:
 
-  1. Keyword pre-filter  — fast overlap ratio on required_skills vs candidate skills
-  2. LLM scoring pass   — Gemini scores overall fit (0-100) with match reasons
+  1. Keyword pre-filter  - fast overlap ratio on required_skills vs candidate skills
+  2. LLM scoring pass   - Gemini scores overall fit (0-100) with match reasons
 
 Writes a ranked shortlist to state["ranked_candidates"].
 """
@@ -93,13 +93,13 @@ def _score_candidate(candidate_text: str, parsed_jd: dict) -> dict:
         result.setdefault("flag", "weak_match")
         return result
     except Exception as exc:  # noqa: BLE001
-        logger.warning("Candidate Matcher: LLM scoring failed — %s", exc)
+        logger.warning("Candidate Matcher: LLM scoring failed - %s", exc)
         return {"score": 0, "match_reasons": [], "flag": "weak_match"}
 
 
 def run_candidate_matcher(state: HireFlowState) -> dict:
     """
-    LangGraph node function for Agent 2 — Candidate Matcher.
+    LangGraph node function for Agent 2 - Candidate Matcher.
 
     Args:
         state: The current HireFlowState.
@@ -115,17 +115,17 @@ def run_candidate_matcher(state: HireFlowState) -> dict:
     try:
         df = pd.read_csv(csv_path)
     except FileNotFoundError:
-        msg = f"Candidate Matcher: CSV not found at '{csv_path}' — trying default."
+        msg = f"Candidate Matcher: CSV not found at '{csv_path}' - trying default."
         logger.warning(msg)
         errors.append(msg)
         try:
             df = pd.read_csv("data/sample_candidates.csv")
         except Exception as exc:
-            err = f"Candidate Matcher: cannot load any candidate CSV — {exc}"
+            err = f"Candidate Matcher: cannot load any candidate CSV - {exc}"
             errors.append(err)
             return {"ranked_candidates": [], "errors": errors}
     except Exception as exc:
-        err = f"Candidate Matcher: error reading CSV — {exc}"
+        err = f"Candidate Matcher: error reading CSV - {exc}"
         errors.append(err)
         return {"ranked_candidates": [], "errors": errors}
 

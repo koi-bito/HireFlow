@@ -1,7 +1,7 @@
-"""
+﻿"""
 tests/test_matcher.py
 ----------------------
-Unit tests for Agent 2 — Candidate Matcher.
+Unit tests for Agent 2 - Candidate Matcher.
 
 Mocks Gemini API calls and uses the real sample CSV.
 """

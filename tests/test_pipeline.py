@@ -1,7 +1,7 @@
-"""
+﻿"""
 tests/test_pipeline.py
 -----------------------
-Integration test — runs the full 4-agent LangGraph pipeline with mocked
+Integration test - runs the full 4-agent LangGraph pipeline with mocked
 Gemini API calls and the real sample CSV.
 
 This test validates end-to-end state propagation without hitting the API.
@@ -72,7 +72,7 @@ def _mock_generate(*args, **kwargs) -> MagicMock:
     elif "recruiter outreach email" in prompt:
         mock_resp.text = OUTREACH_RESPONSE
     else:
-        mock_resp.text = "Strong candidate — schedule soon."
+        mock_resp.text = "Strong candidate - schedule soon."
     return mock_resp
 
 

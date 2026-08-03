@@ -1,7 +1,7 @@
-"""
+﻿"""
 tests/test_outreach.py
 -----------------------
-Unit tests for Agent 3 — Outreach Composer.
+Unit tests for Agent 3 - Outreach Composer.
 """
 
 import json
@@ -38,7 +38,7 @@ RANKED_CANDIDATES = [
 ]
 
 VALID_EMAIL_RESPONSE = json.dumps({
-    "subject": "Exciting ML Engineer opportunity — let's connect",
+    "subject": "Exciting ML Engineer opportunity - let's connect",
     "body": "Hi Alice, we came across your profile and were impressed by your NLP work. We'd love to chat about a Senior ML role that matches your background perfectly. Looking forward to connecting!",
 })
 
