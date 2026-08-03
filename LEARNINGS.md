@@ -1,40 +1,38 @@
-﻿# HireFlow Learnings
+# HireFlow Learnings
 
 ## Day 1
-**What is the difference between an LlmAgent and a SequentialAgent? When would you use each?**
+**What is the difference between an `LlmAgent` and a `SequentialAgent`? When would you use each?**
 
-An `LlmAgent` is essentially a single "brain" powered by a large language model. It takes an instruction, looks at the tools available to it, and figures out how to answer the user's prompt by calling those tools autonomously. You use an `LlmAgent` for a specific, narrow job-like checking for bias or parsing a document.
+An `LlmAgent` is a single specialised "brain" powered by a large language model. It receives an instruction and a clear input, runs one focused task (like parsing a job description or scoring a candidate), and returns structured output. You use an `LlmAgent` when you need deep reasoning on a narrow, well-defined job.
 
-A `SequentialAgent` is like a manager orchestrating an assembly line. It doesn't do the deep thinking itself; instead, it passes data from one agent to the next in a strict, predefined order. You use a `SequentialAgent` when you have a multi-step process (like our HireFlow pipeline) where the output of one specialized `LlmAgent` needs to become the input for the next one, without them stepping on each other's toes.
+A `SequentialAgent` is an orchestrator, not a thinker. It does not reason itself - it enforces a strict, deterministic execution order across multiple `LlmAgent`s. In HireFlow, the LangGraph `StateGraph` acts as our `SequentialAgent`: it passes the shared `HireFlowState` through JD Parser -> Candidate Matcher -> Outreach Composer -> Interview Scheduler in a guaranteed order. You use a `SequentialAgent` when the output of one specialised agent must become the input for the next, with no ambiguity about sequence.
 
 ## Day 2
-**Why does the tool return dict instead of a numpy array? What would break if you returned the numpy array directly?**
+**Why do we use a shared `TypedDict` (HireFlowState) instead of passing arguments directly between agents?**
 
-ADK tools are executed by an LLM agent which requires text-based, structured context to 'understand' the tool's output. An LLM cannot process a raw numerical 
-umpy array object natively-it just sees unstructured numbers. By returning a well-structured dict with named fields (like 
-ame, match_score, skills), the LLM can easily interpret who the best candidate is and why, allowing it to reason about the next steps. If we returned a numpy array directly, the LLM would likely fail to parse the meaning of the data, break the orchestration flow, or hallucinate an interpretation.
+LangGraph's `StateGraph` requires a single shared state object that all nodes read from and write to. Using a `TypedDict` (`HireFlowState`) instead of raw function arguments gives us three benefits: (1) every agent has full visibility of everything that has happened so far in the pipeline - not just what was passed to it; (2) it makes the data contract explicit and type-safe, so mistakes like a missing key are caught early; and (3) each agent only returns the keys it modifies, keeping side-effects local and making debugging straightforward via the `errors` list that every agent appends to.
 
 ## Day 3
-**Why does the docstring matter so much in ADK tools? What happens if the docstring is vague?**
+**Why does the JD Parser instruct Gemini to return "ONLY valid JSON"? What breaks if you skip that instruction?**
 
-In Google ADK, the docstring acts as the tool's "API documentation" for the LLM. Unlike traditional code where a developer reads the docstring, the LLM reads it at runtime to understand what the function does, what arguments it requires, and when it is appropriate to use it. If the docstring is vague, the LLM might hallucinate arguments, fail to call the tool when it should, or call it at the wrong time (e.g., trying to draft outreach before candidates are even scored). A precise, descriptive docstring is essentially the prompt that controls the tool's usage.
+LLMs, by default, are conversational - they will wrap answers in explanatory prose ("Here is the JSON you requested: ..."). If we parse the raw response with `json.loads()` without constraining the output format, it will throw a `JSONDecodeError` because the string is not valid JSON. By explicitly instructing the model to return ONLY valid JSON with no other text, markdown, or explanation, we make the output directly machine-readable. We still wrap the call in a `try/except` with a safe default, because even with the instruction, the model can occasionally fail - graceful degradation matters more than assuming perfect LLM compliance.
 
 ## Day 4
-**You have two tools in the JD Analyst agent. How does the agent decide which to call first? What would happen if it called them in the wrong order?**
+**Why does the Candidate Matcher use a two-step scoring approach (keyword pre-filter then LLM scoring) instead of sending all candidates straight to Gemini?**
 
-The LLM agent relies heavily on the instructions provided in its prompt and the semantic meaning of the tool descriptions. In the `instruction` field of the `jd_analyst_agent`, we explicitly listed steps: "1. Call parse_job_description... 2. Call detect_bias_in_jd...". The LLM understands these textual step-by-step guidelines and plans its tool calls accordingly. If it were to call them in the wrong order, it might try to summarize the requirements before it actually parses them, resulting in a hallucinated or empty summary.
+Sending every candidate directly to Gemini for scoring would be slow and expensive, especially with large candidate pools. The keyword overlap pre-filter is a cheap, instant computation - it compares `required_skills` from the parsed JD against each candidate's skills field using a simple set intersection ratio. Only candidates who pass this fast check are then sent to the LLM for a deeper, more expensive 0-100 fit score with match reasons. This two-step pattern (cheap filter first, expensive model second) is a standard production pattern for keeping AI pipelines cost-efficient and fast without sacrificing quality on the candidates that actually matter.
 
 ## Day 5
-**What is the difference between `SequentialAgent` and `LlmAgent`? Why is the orchestrator a `SequentialAgent` and not an `LlmAgent`? What would break if you made it an `LlmAgent`?**
+**The Interview Scheduler does not use the LLM to generate interview dates. Why not?**
 
-An `LlmAgent` is an autonomous decision-maker that uses an LLM to decide which tools to call and what to output based on its instructions. A `SequentialAgent` does not use an LLM directly to make decisions; instead, it enforces a strict, deterministic execution order across multiple sub-agents. The orchestrator is a `SequentialAgent` because we need a guaranteed pipeline: JD Analysis -> Bias Check -> Candidate Matching -> Outreach Drafting. If we made the orchestrator an `LlmAgent`, it might try to get creative and skip the bias check, run matching before parsing the JD, or draft outreach for candidates it hasn't scored yet. The `SequentialAgent` provides safety and predictability at the top level.
+Dates are deterministic - there is one correct set of next business days, and it can be computed precisely with Python's `datetime` module. Asking an LLM to generate dates is a well-known source of hallucinations: models can confidently produce wrong weekdays, skip weekends incorrectly, or drift from the current date. The Interview Scheduler uses `datetime` to compute real, accurate business-day slots and reserves the LLM only for what it is actually good at - generating a brief, personalised scheduling note per candidate. This is a key architectural principle: use LLMs for language and reasoning tasks; use deterministic code for anything that has a single correct answer.
 
 ## Day 6
-**Why do we test skills separately from agents? What makes agent tests harder to write and less reliable than unit tests?**
+**Why do our tests mock the Gemini API calls instead of calling the real API?**
 
-Skills are standard, deterministic Python functions. We test them separately to ensure the underlying logic (like the TF-IDF math or JSON extraction structure) works perfectly. Agent tests, on the other hand, require a live LLM to interpret a prompt and generate a dynamic response. Because LLMs are non-deterministic, agent tests are inherently flaky-the model might phrase things differently each time, or occasionally skip a minor detail. This makes them much harder to write (you have to test for general concepts using `in` or regex rather than exact string matches) and less reliable. If a skill is broken, the agent will fail, so testing skills in isolation narrows down where the bug actually is.
+Unit and integration tests that call a live LLM would be slow (network latency on every test), expensive (API credits consumed per run), non-deterministic (the model may phrase output differently each time, making assertions brittle), and impossible to run in CI without a secret key. By mocking `_client.models.generate_content` with controlled responses, our 27 tests run in under 4 seconds with zero API calls, zero cost, and 100% reproducibility. The mocks also let us simulate failure cases - like a `JSONDecodeError` or an `Exception("API quota exceeded")` - that would be hard to trigger reliably against a real API. The goal of tests is to validate our code logic, not the LLM's output.
 
 ## Day 7
 **What is the biggest limitation of the current system? What would you add if you had 2 more weeks?**
 
-The biggest limitation of this system is that it currently operates entirely in-memory on static CSV data, without any persistent state tracking or real-world integrations. If I had two more weeks, I would integrate the MCP (Model Context Protocol) sourcing agent we skipped so it could actively search LinkedIn and GitHub for candidates, rather than relying on a static CSV. I would also hook it up to a proper Applicant Tracking System (ATS) API (like Greenhouse or Lever) to automatically move candidates between stages based on the LLM’s scores, and perhaps add a human-in-the-loop Slack integration for final approval before outreach emails are dispatched.
+The biggest limitation is that the pipeline is stateless and single-run - results are held in memory and lost on server restart, and there is no way to resume a failed run or track historical results. If I had two more weeks, I would: (1) add a proper database (PostgreSQL or Redis) to persist run results so `/results/{run_id}` survives restarts; (2) integrate a real candidate sourcing step that searches LinkedIn or GitHub instead of relying on a static CSV; (3) add a human-in-the-loop approval gate before outreach emails are dispatched, perhaps via a Slack notification with approve/reject buttons; and (4) add streaming support to the FastAPI `/run` endpoint so the client can see agent-by-agent progress in real time rather than waiting for the full pipeline to complete.
