@@ -4,12 +4,9 @@ tests/test_scheduler.py
 Unit tests for Agent 4 - Interview Scheduler.
 """
 
-from datetime import date
 from unittest.mock import MagicMock, patch
 
-import pytest
-
-from agents.interview_scheduler import run_interview_scheduler, _next_n_business_days
+from agents.interview_scheduler import _next_n_business_days, run_interview_scheduler
 
 # ── Fixtures ───────────────────────────────────────────────────────────────────
 

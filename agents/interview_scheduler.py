@@ -1,4 +1,4 @@
-﻿"""
+"""
 agents/interview_scheduler.py
 ------------------------------
 Agent 4 - Interview Scheduler
@@ -14,14 +14,12 @@ generate a brief personalised scheduling note per candidate.
 Writes results to state["schedule"].
 """
 
-import json
-import os
-import re
 import logging
+import os
 from datetime import date, timedelta
 
-from google import genai
 from dotenv import load_dotenv
+from google import genai
 
 from pipeline.state import HireFlowState
 
@@ -29,7 +27,7 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 _API_KEY = os.getenv("GOOGLE_API_KEY")
-_MODEL_NAME = os.getenv("MODEL_NAME", "gemini-1.5-flash")
+_MODEL_NAME = os.getenv("MODEL_NAME", "gemini-3.5-flash")
 _SLOT_TIMES = ["10:00 AM", "2:00 PM", "11:00 AM"]
 _SLOT_DURATION_MIN = 45
 _INTERVIEW_FLAGS = {"strong_match", "partial_match"}

@@ -8,7 +8,7 @@ passes it between nodes; each agent function receives the full state and
 returns only the keys it modifies.
 """
 
-from typing import TypedDict, Optional
+from typing import Optional, TypedDict
 
 
 class HireFlowState(TypedDict):

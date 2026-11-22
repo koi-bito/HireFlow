@@ -1,0 +1,61 @@
+name,email,skills,years_experience,location,summary
+Alice Sharma,alice.sharma@example.com,"Python, PyTorch, NLP, transformers, FastAPI, Docker",6,Remote,ML engineer with 6 years experience deploying large language models and transformer architectures.
+David Chen,david.chen@example.com,"Python, machine learning, NLP, HuggingFace, FastAPI, PyTorch",5,San Francisco,Applied AI engineer building semantic search pipelines and RAG architectures.
+Fatima Al-Hassan,fatima.al@example.com,"Python, deep learning, PyTorch, computer vision, OpenCV, transformers",4,Remote,Computer vision and multimodal deep learning specialist with strong PyTorch skills.
+Marcus Vance,marcus.v@example.com,"Python, NLP, scikit-learn, FastAPI, transformers, MLflow",5,Remote,Production ML developer building fast microservices using FastAPI and HuggingFace.
+Elena Rostova,elena.r@example.com,"Python, PyTorch, LLMs, LangChain, vector databases, FastAPI",4,New York,AI engineer focused on retrieval-augmented generation and transformer model deployment.
+Liam O'Connor,liam.oc@example.com,"Python, machine learning, TensorFlow, scikit-learn, Docker",3,Remote,"ML engineer experienced in classification, regression, and model packaging."
+Siddharth Rao,sid.rao@example.com,"Python, PyTorch, NLP, speech recognition, FastAPI, Docker",7,Seattle,Senior AI researcher with 7 years deploying speech and NLP models at scale.
+Chloe Bennett,chloe.b@example.com,"Python, data science, machine learning, Pandas, PyTorch",4,Austin,Data scientist with expertise in predictive modeling and PyTorch model experimentation.
+Kenji Sato,kenji.s@example.com,"Python, deep learning, NLP, FastAPI, Ray, Kubernetes",6,Remote,Distributed ML systems engineer training and scaling transformer models on GPU clusters.
+Amina Diallo,amina.d@example.com,"Python, NLP, PyTorch, FastAPI, text embeddings, Docker",5,London,NLP specialist with 5 years designing neural retrieval and entity extraction systems.
+Bob Zhang,bob.zhang@example.com,"Java, Spring Boot, SQL, REST APIs, Docker, Kubernetes, Microservices",7,New York,Senior Java backend engineer specialising in distributed microservices and PostgreSQL.
+Rajesh Kulkarni,rajesh.k@example.com,"Java, Spring Boot, Microservices, Kafka, SQL, Docker",6,Remote,Backend engineer building high-volume event-driven microservices with Spring and Kafka.
+Clara Becker,clara.b@example.com,"Java, Spring Boot, REST APIs, SQL, Hibernate, JUnit",5,New York,Java engineer building enterprise web APIs and relational database persistence.
+Dmitri Ivanov,dmitri.i@example.com,"Java, Microservices, Spring Boot, SQL, Kubernetes, CI/CD",8,Remote,Staff backend engineer maintaining high-throughput banking transaction systems.
+Sarah Jenkins,sarah.j@example.com,"Java, Spring Boot, REST APIs, PostgreSQL, Docker, AWS",4,Chicago,Backend software developer building secure REST endpoints and cloud integrations.
+Guillermo Silva,guillermo.s@example.com,"Java, Spring Boot, Kafka, SQL, Microservices, Docker",5,New York,Microservices developer experienced in Kafka pub/sub and high-availability Java services.
+Hanna Lindqvist,hanna.l@example.com,"Java, Kotlin, Spring Boot, REST APIs, SQL",4,Remote,Full backend engineer with Kotlin and Java experience creating scalable APIs.
+Tariq Mansoor,tariq.m@example.com,"Java, Spring Boot, SQL, Microservices, Redis, Docker",6,Seattle,Backend engineer with 6 years experience in Java API development and caching.
+Carlos Rivera,carlos.r@example.com,"JavaScript, React, Node.js, TypeScript, GraphQL, CSS",6,Remote,"Senior full-stack developer with 6 years in React, Node, and GraphQL APIs."
+Emily Watson,emily.w@example.com,"TypeScript, React, Next.js, Node.js, GraphQL, Tailwind",5,Remote,Full-stack web engineer creating modern React interfaces and Node backends.
+Lucas Moreau,lucas.m@example.com,"TypeScript, React, Node.js, Express, PostgreSQL, CSS",4,New York,Full-stack JavaScript developer building responsive UI and robust API services.
+Pooja Nair,pooja.n@example.com,"React, TypeScript, GraphQL, Redux, Node.js, HTML/CSS",5,Remote,Frontend-leaning full-stack developer with deep expertise in React state management.
+Tom Anderson,tom.a@example.com,"TypeScript, Node.js, React, Next.js, Tailwind, GraphQL",6,San Francisco,Full-stack architect with 6 years experience building SaaS applications.
+Zoe Taylor,zoe.t@example.com,"React, TypeScript, JavaScript, CSS, Node.js, REST",3,Austin,Software engineer focused on intuitive component design and TypeScript full-stack apps.
+Mateo Gomez,mateo.g@example.com,"TypeScript, React, GraphQL, Node.js, MongoDB, Docker",5,Remote,Full-stack engineer building fast single-page apps and serverless GraphQL endpoints.
+Yuki Tanaka,yuki.t@example.com,"TypeScript, Node.js, React, Next.js, PostgreSQL",4,Remote,Web developer with 4 years building scalable web applications with Next.js.
+Ravi Kumar,ravi.k@example.com,"DevOps, AWS, Terraform, CI/CD, GitHub Actions, Linux, Kubernetes",8,Seattle,Senior DevOps engineer with 8 years building AWS cloud infrastructure with Terraform.
+Jessica Miller,jessica.m@example.com,"Kubernetes, AWS, Terraform, Docker, CI/CD, Linux, Helm",6,Seattle,Site reliability engineer managing container orchestration and automated delivery pipelines.
+Alexander Popov,alex.p@example.com,"Linux, AWS, Docker, Kubernetes, Terraform, Bash, CI/CD",7,Remote,Infrastructure automation engineer with 7 years Linux systems and AWS experience.
+Nadia Boulanger,nadia.b@example.com,"AWS, Terraform, CI/CD, GitHub Actions, Linux, Prometheus",5,Remote,"DevOps engineer building monitoring, observability, and Terraform modules."
+Kwame Mensah,kwame.m@example.com,"Kubernetes, Docker, AWS, Linux, CI/CD, Terraform",5,Seattle,Platform engineer maintaining microservice deployments across multi-region Kubernetes.
+Samuel Cohen,samuel.c@example.com,"AWS, CloudFormation, Terraform, CI/CD, Python, Linux",6,New York,Cloud architect automating cloud governance and zero-downtime deployment pipelines.
+Olga Smirnova,olga.s@example.com,"Kubernetes, Helm, Docker, AWS, Terraform, Linux",4,Remote,Cloud infrastructure developer with strong hands-on Kubernetes and Helm experience.
+Brett Harper,brett.h@example.com,"DevOps, AWS, Linux, CI/CD, Docker, Terraform",5,Seattle,DevOps practitioner automating build systems and maintaining Linux server clusters.
+Priya Mehta,priya.m@example.com,"Python, data analysis, pandas, NumPy, SQL, Tableau, PowerBI",5,Austin,Senior data analyst with 5 years crafting Tableau dashboards and running complex SQL queries.
+Arthur Pendelton,arthur.p@example.com,"SQL, Python, Pandas, Tableau, Data Analysis, Snowflake",4,Remote,BI analyst transforming warehouse data into automated business intelligence dashboards.
+Leila Mostafa,leila.m@example.com,"Python, SQL, Tableau, Data Analysis, Pandas, Matplotlib",5,Austin,Data specialist analyzing customer retention cohorts and presenting executive insights.
+Victor Hugo,victor.h@example.com,"SQL, Tableau, Data Analysis, PowerBI, Excel, Python",6,Remote,Analytics professional with 6 years experience in reporting and revenue forecasting.
+Meera Joshi,meera.j@example.com,"Python, Pandas, SQL, Tableau, Statistics, A/B testing",4,Austin,Product data analyst partnering with growth teams to validate experiments via SQL and Python.
+Brian O'Shea,brian.os@example.com,"SQL, Tableau, Data Analysis, Snowflake, dbt, Pandas",3,New York,Data analyst modeling ETL transformations with dbt and visualizing metrics in Tableau.
+Sunita Patel,sunita.p@example.com,"Python, SQL, Tableau, Pandas, Data Analysis, Dash",5,Remote,Data insights lead with 5 years creating interactive Tableau and Python analytical tools.
+Gabriel Torres,gabriel.t@example.com,"SQL, Python, Data Analysis, Tableau, PowerBI",4,Austin,BI developer designing dimensional models and KPI reporting dashboards.
+Dmitri Volkov,dmitri.v@example.com,"C++, C, embedded systems, RTOS, firmware, IoT, ARM",10,Boston,Embedded systems veteran with a decade writing real-time RTOS firmware for ARM microcontrollers.
+Stefan Mueller,stefan.m@example.com,"C, C++, RTOS, Firmware, Embedded Systems, SPI/I2C",6,Boston,Firmware engineer developing low-power IoT sensor node software in C and modern C++.
+Ananya Sen,ananya.s@example.com,"C++, Embedded Systems, RTOS, Firmware, Linux, C",5,Remote,Embedded developer programming automotive ECUs and real-time hardware drivers.
+Klaus Weber,klaus.w@example.com,"C, C++, Firmware, RTOS, Embedded Systems, BLE",7,Boston,Hardware-software integration specialist programming wireless microcontrollers.
+Hiroshi Takahashi,hiroshi.t@example.com,"C++, RTOS, Embedded Systems, Firmware, ARM Cortex",8,Remote,Embedded systems developer building high-reliability medical device firmware.
+Lars Nielsen,lars.n@example.com,"C, C++, RTOS, Firmware, IoT, Hardware Debugging",5,Boston,"Firmware developer experienced with oscilloscopes, logic analyzers, and RTOS threads."
+Mei Lin,mei.lin@example.com,"Product Management, Agile, Jira, user research, roadmapping, ML",6,San Francisco,Product manager with 6 years experience shipping B2B SaaS and machine learning features.
+Rachel Green,rachel.g@example.com,"Product Management, Agile, Roadmapping, Jira, User Research",5,San Francisco,Technical PM guiding cross-functional agile teams from problem discovery to product launch.
+Devon Brooks,devon.b@example.com,"Product Management, Agile, User Research, Roadmapping, Jira",4,Remote,Growth product manager optimizing onboarding funnels and user retention.
+Kavita Reddy,kavita.r@example.com,"Product Management, Roadmapping, Agile, Jira, Data Analysis",7,San Francisco,Principal PM with 7 years leading enterprise data platform and analytics product lines.
+Simon Cox,simon.c@example.com,"Product Management, Agile, Scrum, Jira, Roadmapping, UI/UX",5,Remote,Scrum-certified product manager translating business goals into crisp user stories.
+Nathalie Dubois,nathalie.d@example.com,"Product Management, User Research, Roadmapping, Agile, Jira",6,San Francisco,Technical product leader with 6 years experience driving cloud product strategies.
+Lucas Silva,lucas.silva@example.com,"Flutter, Dart, iOS, Android, Mobile Development, Swift",5,Remote,Mobile engineer with 5 years building and shipping cross-platform Flutter mobile applications.
+Tara Higgins,tara.h@example.com,"Flutter, Dart, Mobile Development, iOS, Android, Firebase",4,Remote,Mobile software developer creating slick Flutter user interfaces for iOS and Android.
+Alonso Morales,alonso.m@example.com,"Mobile Development, Flutter, Dart, Swift, iOS, Android",6,Remote,Lead mobile architect experienced in native iOS bridge integrations and Flutter state.
+Jasmine Zhao,jasmine.z@example.com,"Flutter, Dart, iOS, Android, Mobile Development, REST",3,New York,Mobile developer specialized in offline-first data caching and clean Dart code.
+Henrik Berg,henrik.b@example.com,"Flutter, Dart, Swift, Mobile Development, iOS, Android",5,Remote,Cross-platform mobile engineer with 5 published applications in the App Store.
+Fatou Traore,fatou.t@example.com,"Mobile Development, Flutter, Dart, Android, iOS, Firebase",4,Remote,Mobile developer building real-time collaboration apps with Flutter and Firebase.

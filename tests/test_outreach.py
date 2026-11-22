@@ -7,8 +7,6 @@ Unit tests for Agent 3 - Outreach Composer.
 import json
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from agents.outreach_composer import run_outreach_composer
 
 # ── Fixtures ───────────────────────────────────────────────────────────────────

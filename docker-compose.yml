@@ -1,0 +1,27 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hireflow-api
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - MODEL_NAME=${MODEL_NAME:-gemini-3.5-flash}
+      - MATCHER_MODE=hybrid
+      - DB_PATH=/app/hireflow.db
+      - EMBEDDING_CACHE_DIR=/app/.cache/embeddings
+      - CORS_ORIGINS=*
+    volumes:
+      - hireflow_data:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  hireflow_data:

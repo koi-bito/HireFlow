@@ -1,4 +1,4 @@
-﻿"""
+"""
 agents/outreach_composer.py
 ----------------------------
 Agent 3 - Outreach Composer
@@ -12,12 +12,12 @@ Writes results to state["outreach_messages"].
 """
 
 import json
+import logging
 import os
 import re
-import logging
 
-from google import genai
 from dotenv import load_dotenv
+from google import genai
 
 from pipeline.state import HireFlowState
 
@@ -25,7 +25,7 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 _API_KEY = os.getenv("GOOGLE_API_KEY")
-_MODEL_NAME = os.getenv("MODEL_NAME", "gemini-1.5-flash")
+_MODEL_NAME = os.getenv("MODEL_NAME", "gemini-3.5-flash")
 _MAX_CANDIDATES = int(os.getenv("OUTREACH_MAX_CANDIDATES", "5"))
 
 _client = genai.Client(api_key=_API_KEY)

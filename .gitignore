@@ -1,3 +1,4 @@
+# Python Bytecode & Environments
 __pycache__/
 *.py[cod]
 *$py.class
@@ -6,9 +7,29 @@ __pycache__/
 env/
 venv/
 .venv/
-.env
-.DS_Store
-uploads/*
-
 hireflow_env/
+
+# Environment Variables & Secrets
+.env
+.env.local
+
+# Databases & Caches
 *.db
+*.db-journal
+.cache/
+.pytest_cache/
+.ruff_cache/
+
+# Uploaded candidate files & temporary logs
+data/uploaded_*.csv
+uploads/
+*.log
+
+# Prompts & internal specs
+HireFlow v3 Embeddings, Ranking & Evals Upgrade Prompt.md
+*Prompt*.md
+*Upgrade*.md
+
+# OS artifacts
+.DS_Store
+Thumbs.db

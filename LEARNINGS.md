@@ -30,9 +30,34 @@ Dates are deterministic - there is one correct set of next business days, and it
 ## Day 6
 **Why do our tests mock the Gemini API calls instead of calling the real API?**
 
-Unit and integration tests that call a live LLM would be slow (network latency on every test), expensive (API credits consumed per run), non-deterministic (the model may phrase output differently each time, making assertions brittle), and impossible to run in CI without a secret key. By mocking `_client.models.generate_content` with controlled responses, our 27 tests run in under 4 seconds with zero API calls, zero cost, and 100% reproducibility. The mocks also let us simulate failure cases - like a `JSONDecodeError` or an `Exception("API quota exceeded")` - that would be hard to trigger reliably against a real API. The goal of tests is to validate our code logic, not the LLM's output.
+Unit and integration tests that call a live LLM would be slow (network latency on every test), expensive (API credits consumed per run), non-deterministic (the model may phrase output differently each time, making assertions brittle), and impossible to run in CI without a secret key. By mocking `_client.models.generate_content` with controlled responses, our tests run in under 8 seconds with zero API calls, zero cost, and 100% reproducibility. The mocks also let us simulate failure cases - like a `JSONDecodeError` or an `Exception("API quota exceeded")` - that would be hard to trigger reliably against a real API. The goal of tests is to validate our code logic, not the LLM's output.
 
 ## Day 7
 **What is the biggest limitation of the current system? What would you add if you had 2 more weeks?**
 
-The biggest limitation is that the pipeline is stateless and single-run - results are held in memory and lost on server restart, and there is no way to resume a failed run or track historical results. If I had two more weeks, I would: (1) add a proper database (PostgreSQL or Redis) to persist run results so `/results/{run_id}` survives restarts; (2) integrate a real candidate sourcing step that searches LinkedIn or GitHub instead of relying on a static CSV; (3) add a human-in-the-loop approval gate before outreach emails are dispatched, perhaps via a Slack notification with approve/reject buttons; and (4) add streaming support to the FastAPI `/run` endpoint so the client can see agent-by-agent progress in real time rather than waiting for the full pipeline to complete.
+The biggest limitation was originally that the pipeline was stateless and single-run - results were held in memory and lost on server restart, and there was no way to resume a failed run or track historical results. If I had two more weeks, I would: (1) add a proper database (PostgreSQL or SQLite) to persist run results so `/results/{run_id}` survives restarts; (2) integrate a real candidate sourcing step that searches LinkedIn or GitHub instead of relying on a static CSV; (3) add a human-in-the-loop approval gate before outreach emails are dispatched; and (4) add streaming support to the FastAPI `/run` endpoint so the client can see agent-by-agent progress in real time rather than waiting for the full pipeline to complete.
+
+## Day 8
+**Why do we use dense vector embeddings for candidate retrieval instead of relying solely on keyword matching?**
+
+Keyword matching suffers from the classic "vocabulary mismatch" problem in information retrieval: if a job description asks for "distributed deep learning systems" and a candidate resume highlights "scalable multi-GPU neural network training", keyword overlap yields a score of 0.0 even though the candidate is exceptionally qualified. Dense vector embeddings map job requirements and candidate profiles into a shared geometric semantic space where semantically synonymous phrases cluster together. At the same time, we exclude candidate names from profile embeddings to eliminate demographic and gender bias during vector search.
+
+## Day 9
+**Why does Reciprocal Rank Fusion (RRF) work better than a linear weighted sum of keyword and embedding scores?**
+
+Linear score combination ($S = \alpha \cdot S_{\text{keyword}} + (1 - \alpha) \cdot S_{\text{embed}}$) requires raw scores to share the same probability distribution and scale. However, cosine similarity scores from modern transformer embeddings typically cluster within narrow bands (e.g. $0.65 - 0.85$), whereas keyword overlap ratios range from $0.0$ to $1.0$ with discrete step jumps. Reciprocal Rank Fusion ($RRF(d) = \sum \frac{1}{k + r(d)}$) operates purely on the relative ordinal positions (ranks) rather than raw magnitudes. It is completely model-agnostic, requires no calibration when the embedding model is updated, and penalizes candidates that only perform well in one modality while rewarding candidates that rank near the top across both.
+
+## Day 10
+**Why do we evaluate candidate ranking with NDCG and MRR instead of simple Accuracy or F1 score?**
+
+Accuracy and F1 are classification metrics: they treat candidate selection as an unordered set and ignore position. In recruitment, order is paramount: a recruiter will only review the top 5 to 10 candidates. If a stellar candidate is retrieved at position #1 versus position #10, classification Accuracy treats both equally, but NDCG (Normalized Discounted Cumulative Gain) applies a logarithmic discount penalty ($\frac{1}{\log_2(\text{rank} + 1)}$) to reflect that lower positions receive drastically less human attention. Furthermore, MRR (Mean Reciprocal Rank) evaluates how quickly the recruiter encounters their very first qualified hire.
+
+## Day 11
+**How does recruiter feedback personalization improve matching, and why must the nudge be capped?**
+
+Recruiters frequently possess tacit domain heuristics that are absent from written job descriptions (e.g. preferring engineers from high-velocity startups or with specific architectural disciplines). By storing recruiter actions (`shortlisted`, `rejected`, `hired`) in SQLite, the matcher nudges candidate scores by comparing applicants against past feedback for that role title. However, the nudge must be strictly capped (at $\pm 0.08$) to prevent filter bubbles and catastrophic drift: feedback should provide subtle personalization, not override objective qualification criteria or exclude candidates who meet every hard requirement on paper.
+
+## Day 12
+**Why use an agentic function-calling loop for recruiter interactions instead of a static prompt template?**
+
+A static chat prompt can only provide generic answers based on the prompt's pre-loaded text. In contrast, an agentic loop equipped with typed tools (`parse_job_description`, `search_candidates`, `explain_match`, `record_feedback`, `draft_outreach`) allows the LLM to inspect live state, query SQLite databases, execute real Python algorithms, and record persistent mutations. Coupled with conversational turn compaction and long-term feedback memory, the agent operates as an autonomous talent partner capable of taking multi-step actions on behalf of the hiring team.

@@ -1,4 +1,4 @@
-﻿"""
+"""
 agents/jd_parser.py
 --------------------
 Agent 1 - JD Parser
@@ -11,13 +11,12 @@ the error is appended to state["errors"] so the pipeline continues gracefully.
 """
 
 import json
+import logging
 import os
 import re
-import logging
 
-from google import genai
-from google.genai import types
 from dotenv import load_dotenv
+from google import genai
 
 from pipeline.state import HireFlowState
 
@@ -26,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 # ── Gemini client setup ────────────────────────────────────────────────────────
 _API_KEY = os.getenv("GOOGLE_API_KEY")
-_MODEL_NAME = os.getenv("MODEL_NAME", "gemini-1.5-flash")
+_MODEL_NAME = os.getenv("MODEL_NAME", "gemini-3.5-flash")
 
 _client = genai.Client(api_key=_API_KEY)
 

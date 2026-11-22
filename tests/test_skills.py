@@ -1,45 +1,37 @@
-import json
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+"""
+tests/test_skills.py
+---------------------
+Tests for the keyword-overlap skill used by the Candidate Matcher.
 
-from tools.tfidf_matcher import match_candidates_to_jd
+Replaces the original TF-IDF matcher tests that referenced a deleted
+`tools/tfidf_matcher` module from the legacy Flask prototype.
+"""
 
+import pytest
 
-def test_basic_ranking():
-    jd = "Python machine learning NLP developer."
-    candidates = [
-        {"name": "Alice", "skills": ["Python", "machine learning", "NLP"]},
-        {"name": "Bob", "skills": ["Java", "Spring Boot"]}
-    ]
-    result = match_candidates_to_jd(jd, json.dumps(candidates))
-    assert result["ranked_candidates"][0]["name"] == "Alice"
+from agents.candidate_matcher import _keyword_overlap
 
 
-def test_empty_candidates():
-    result = match_candidates_to_jd("Python developer", json.dumps([]))
-    assert "error" in result
+def test_full_overlap_returns_one():
+    """All required skills present in candidate → 1.0."""
+    assert _keyword_overlap(["Python", "FastAPI"], "Python, FastAPI, Docker") == 1.0
 
 
-def test_invalid_json():
-    result = match_candidates_to_jd("Python developer", "not valid json")
-    assert "error" in result
+def test_partial_overlap():
+    ratio = _keyword_overlap(["Python", "FastAPI", "Go"], "Python, Django")
+    assert ratio == pytest.approx(1 / 3)
 
 
-def test_all_candidates_returned():
-    jd = "Python developer"
-    candidates = [
-        {"name": "A", "skills": ["Python"]},
-        {"name": "B", "skills": ["Java"]},
-        {"name": "C", "skills": ["Ruby"]}
-    ]
-    result = match_candidates_to_jd(jd, json.dumps(candidates))
-    assert result["total"] == 3
+def test_no_overlap_returns_zero():
+    assert _keyword_overlap(["Rust", "C++"], "Python, Django") == 0.0
 
 
-def test_scores_between_zero_and_one():
-    jd = "Python developer"
-    candidates = [{"name": "Alice", "skills": ["Python", "Django"]}]
-    result = match_candidates_to_jd(jd, json.dumps(candidates))
-    for c in result["ranked_candidates"]:
-        assert 0.0 <= c["match_score"] <= 1.0
+def test_empty_required_skills_returns_one():
+    """No required skills → every candidate passes."""
+    assert _keyword_overlap([], "Python, FastAPI") == 1.0
+
+
+def test_case_insensitive():
+    assert _keyword_overlap(["python"], "Python, Django") == 1.0
+
+

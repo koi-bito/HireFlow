@@ -1,0 +1,153 @@
+[
+  {
+    "id": "jd_01",
+    "title": "Senior Machine Learning Engineer",
+    "raw_jd": "We are seeking a Senior ML Engineer with 5+ years of experience in Python, PyTorch, transformers, NLP, model serving, and FastAPI. Experience with vector databases and Docker is required. Location: Remote. Full-time.",
+    "required_skills": [
+      "Python",
+      "PyTorch",
+      "NLP",
+      "transformers",
+      "FastAPI"
+    ],
+    "preferred_skills": [
+      "Docker",
+      "Vector Databases",
+      "MLflow"
+    ],
+    "years_experience": "5+",
+    "location": "Remote"
+  },
+  {
+    "id": "jd_02",
+    "title": "Java Backend Microservices Engineer",
+    "raw_jd": "Looking for a Backend Java Engineer with 5+ years of experience in Java, Spring Boot, microservices architecture, SQL, REST APIs, Kafka, and Docker. Experience with Kubernetes and high-throughput systems is a plus. Location: New York or Remote.",
+    "required_skills": [
+      "Java",
+      "Spring Boot",
+      "SQL",
+      "REST APIs",
+      "Microservices"
+    ],
+    "preferred_skills": [
+      "Kafka",
+      "Docker",
+      "Kubernetes"
+    ],
+    "years_experience": "5+",
+    "location": "New York"
+  },
+  {
+    "id": "jd_03",
+    "title": "Senior Full-Stack TypeScript Developer",
+    "raw_jd": "Seeking an experienced Full-Stack Developer proficient in React, Node.js, TypeScript, GraphQL, Next.js, and CSS/Tailwind. Must have built responsive web apps. Location: Remote.",
+    "required_skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "GraphQL"
+    ],
+    "preferred_skills": [
+      "Next.js",
+      "Tailwind CSS",
+      "PostgreSQL"
+    ],
+    "years_experience": "4+",
+    "location": "Remote"
+  },
+  {
+    "id": "jd_04",
+    "title": "DevOps & Cloud Platform Engineer",
+    "raw_jd": "Join our infrastructure team as a DevOps Engineer. Requirements: 5+ years with AWS, Kubernetes, Terraform, Docker, CI/CD pipelines, Linux, and GitHub Actions. Location: Seattle.",
+    "required_skills": [
+      "AWS",
+      "Kubernetes",
+      "Terraform",
+      "CI/CD",
+      "Linux"
+    ],
+    "preferred_skills": [
+      "Helm",
+      "Prometheus",
+      "Python"
+    ],
+    "years_experience": "5+",
+    "location": "Seattle"
+  },
+  {
+    "id": "jd_05",
+    "title": "Senior Data Analyst",
+    "raw_jd": "We are hiring a Senior Data Analyst skilled in Python, SQL, Tableau, Pandas, data warehousing, and business intelligence reporting. Location: Austin or Remote.",
+    "required_skills": [
+      "Python",
+      "SQL",
+      "Tableau",
+      "Pandas",
+      "Data Analysis"
+    ],
+    "preferred_skills": [
+      "Snowflake",
+      "dbt",
+      "PowerBI"
+    ],
+    "years_experience": "3+",
+    "location": "Austin"
+  },
+  {
+    "id": "jd_06",
+    "title": "Embedded Firmware Engineer",
+    "raw_jd": "Seeking an Embedded Systems Engineer with deep expertise in C, C++, RTOS, microcontroller firmware (ARM Cortex), hardware debugging, and IoT communication protocols. Location: Boston.",
+    "required_skills": [
+      "C++",
+      "C",
+      "RTOS",
+      "Firmware",
+      "Embedded Systems"
+    ],
+    "preferred_skills": [
+      "ARM",
+      "SPI/I2C",
+      "BLE"
+    ],
+    "years_experience": "4+",
+    "location": "Boston"
+  },
+  {
+    "id": "jd_07",
+    "title": "Technical Product Manager (AI & Data)",
+    "raw_jd": "Looking for a Technical Product Manager to lead AI products. Must have 4+ years leading agile software teams, product roadmapping, user research, Jira, and working with ML/data teams. Location: San Francisco.",
+    "required_skills": [
+      "Product Management",
+      "Agile",
+      "Roadmapping",
+      "Jira",
+      "User Research"
+    ],
+    "preferred_skills": [
+      "AI/ML Knowledge",
+      "SQL",
+      "A/B Testing"
+    ],
+    "years_experience": "4+",
+    "location": "San Francisco"
+  },
+  {
+    "id": "jd_08",
+    "title": "Mobile App Developer (Flutter & iOS)",
+    "raw_jd": "We are hiring a Mobile Application Developer with 3+ years experience in Flutter, Dart, Swift, iOS, Android, and mobile REST integration. Location: Remote.",
+    "required_skills": [
+      "Flutter",
+      "Dart",
+      "iOS",
+      "Android",
+      "Mobile Development"
+    ],
+    "preferred_skills": [
+      "Swift",
+      "Firebase",
+      "App Store Deployment"
+    ],
+    "years_experience": "3+",
+    "location": "Remote"
+  }
+]

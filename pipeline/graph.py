@@ -9,13 +9,13 @@ StateGraph that executes them in order:
 Call `pipeline.invoke(initial_state)` to run the full workflow.
 """
 
-from langgraph.graph import StateGraph, END
+from langgraph.graph import END, StateGraph
 
-from pipeline.state import HireFlowState
-from agents.jd_parser import run_jd_parser
 from agents.candidate_matcher import run_candidate_matcher
-from agents.outreach_composer import run_outreach_composer
 from agents.interview_scheduler import run_interview_scheduler
+from agents.jd_parser import run_jd_parser
+from agents.outreach_composer import run_outreach_composer
+from pipeline.state import HireFlowState
 
 
 def build_pipeline() -> StateGraph:

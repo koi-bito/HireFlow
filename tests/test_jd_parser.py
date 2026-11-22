@@ -10,10 +10,7 @@ without a GOOGLE_API_KEY.
 import json
 from unittest.mock import MagicMock, patch
 
-import pytest
-
-from agents.jd_parser import run_jd_parser, _SAFE_DEFAULT
-
+from agents.jd_parser import run_jd_parser
 
 # ── Fixtures ───────────────────────────────────────────────────────────────────
 
