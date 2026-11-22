@@ -32,7 +32,14 @@ _SLOT_TIMES = ["10:00 AM", "2:00 PM", "11:00 AM"]
 _SLOT_DURATION_MIN = 45
 _INTERVIEW_FLAGS = {"strong_match", "partial_match"}
 
-_client = genai.Client(api_key=_API_KEY)
+_client = None
+
+
+def get_genai_client() -> genai.Client:
+    global _client
+    if _client is None:
+        _client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+    return _client
 
 _NOTE_PROMPT = """Write a single short scheduling note (max 20 words) for a recruiter about interviewing this candidate. Return ONLY the note as plain text, no JSON, no formatting.
 
@@ -82,7 +89,8 @@ def _generate_note(candidate: dict) -> str:
         reasons="; ".join(candidate.get("match_reasons", [])[:2]),
     )
     try:
-        response = _client.models.generate_content(model=_MODEL_NAME, contents=prompt)
+        client = _client if _client is not None else get_genai_client()
+        response = client.models.generate_content(model=_MODEL_NAME, contents=prompt)
         return response.text.strip()
     except Exception as exc:  # noqa: BLE001
         logger.warning("Interview Scheduler: note generation failed for %s - %s", candidate["name"], exc)

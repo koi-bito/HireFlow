@@ -27,7 +27,14 @@ logger = logging.getLogger(__name__)
 _API_KEY = os.getenv("GOOGLE_API_KEY")
 _MODEL_NAME = os.getenv("MODEL_NAME", "gemini-3.5-flash")
 
-_client = genai.Client(api_key=_API_KEY)
+_client = None
+
+
+def get_genai_client() -> genai.Client:
+    global _client
+    if _client is None:
+        _client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+    return _client
 
 # ── Prompt template ────────────────────────────────────────────────────────────
 _PROMPT_TEMPLATE = """You are a recruitment data extractor. Given the job description below, extract the following fields and return ONLY valid JSON with no other text, markdown, or explanation:
@@ -86,7 +93,8 @@ def run_jd_parser(state: HireFlowState) -> dict:
     prompt = _PROMPT_TEMPLATE.format(raw_jd=raw_jd)
 
     try:
-        response = _client.models.generate_content(model=_MODEL_NAME, contents=prompt)
+        client = _client if _client is not None else get_genai_client()
+        response = client.models.generate_content(model=_MODEL_NAME, contents=prompt)
         parsed = _extract_json(response.text)
 
         # Guarantee required_skills is always a list

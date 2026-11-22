@@ -9,6 +9,9 @@ on:
 jobs:
   test-and-eval:
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_API_KEY: "dummy-ci-test-key"
+      HIREFLOW_TEST_MODE: "1"
 
     steps:
       - name: Checkout repository

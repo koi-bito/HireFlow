@@ -28,7 +28,14 @@ _API_KEY = os.getenv("GOOGLE_API_KEY")
 _MODEL_NAME = os.getenv("MODEL_NAME", "gemini-3.5-flash")
 _MAX_CANDIDATES = int(os.getenv("OUTREACH_MAX_CANDIDATES", "5"))
 
-_client = genai.Client(api_key=_API_KEY)
+_client = None
+
+
+def get_genai_client() -> genai.Client:
+    global _client
+    if _client is None:
+        _client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+    return _client
 
 _OUTREACH_PROMPT = """Write a professional recruiter outreach email for this candidate. The tone should be warm and human - not a generic template blast. Reference at least one of their specific strengths listed below. Keep the email under 200 words. Return ONLY valid JSON with no other text or markdown:
 {{
@@ -57,7 +64,8 @@ def _compose_outreach(candidate: dict, job_title: str) -> dict:
         match_reasons=reasons_text or "  - Strong overall profile",
     )
     try:
-        response = _client.models.generate_content(model=_MODEL_NAME, contents=prompt)
+        client = _client if _client is not None else get_genai_client()
+        response = client.models.generate_content(model=_MODEL_NAME, contents=prompt)
         result = _parse_llm_response(response.text)
         return {
             "subject": result.get("subject", "Exciting opportunity for you"),

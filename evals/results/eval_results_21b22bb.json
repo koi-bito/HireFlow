@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-11-22 11:18:34 UTC",
+  "commit": "21b22bb",
+  "ci_mode": true,
+  "results": [
+    {
+      "mode": "keyword",
+      "p@5": 1.0,
+      "p@10": 0.775,
+      "r@5": 0.3857,
+      "r@10": 0.5683,
+      "mrr": 1.0,
+      "ndcg@5": 0.9878,
+      "ndcg@10": 0.9517,
+      "groundedness_rate": 1.0,
+      "json_parse_success_rate": 1.0,
+      "hallucinated_skills_count": 0,
+      "avg_latency_ms": 8.9,
+      "llm_calls_per_run": 0.0
+    },
+    {
+      "mode": "embedding",
+      "p@5": 1.0,
+      "p@10": 0.825,
+      "r@5": 0.3857,
+      "r@10": 0.6049,
+      "mrr": 1.0,
+      "ndcg@5": 0.9769,
+      "ndcg@10": 0.9574,
+      "groundedness_rate": 1.0,
+      "json_parse_success_rate": 1.0,
+      "hallucinated_skills_count": 0,
+      "avg_latency_ms": 32.4,
+      "llm_calls_per_run": 0.0
+    },
+    {
+      "mode": "hybrid",
+      "p@5": 0.95,
+      "p@10": 0.8,
+      "r@5": 0.3678,
+      "r@10": 0.5842,
+      "mrr": 0.875,
+      "ndcg@5": 0.876,
+      "ndcg@10": 0.898,
+      "groundedness_rate": 1.0,
+      "json_parse_success_rate": 1.0,
+      "hallucinated_skills_count": 0,
+      "avg_latency_ms": 31.0,
+      "llm_calls_per_run": 0.0
+    },
+    {
+      "mode": "hybrid + LLM",
+      "p@5": 0.975,
+      "p@10": 0.8,
+      "r@5": 0.3779,
+      "r@10": 0.5842,
+      "mrr": 1.0,
+      "ndcg@5": 0.9586,
+      "ndcg@10": 0.9421,
+      "groundedness_rate": 1.0,
+      "json_parse_success_rate": 1.0,
+      "hallucinated_skills_count": 0,
+      "avg_latency_ms": 104.1,
+      "llm_calls_per_run": 1.0
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-11-22 10:35:38 UTC",
-  "commit": "508e584",
+  "timestamp": "2026-11-22 11:18:34 UTC",
+  "commit": "21b22bb",
   "ci_mode": true,
   "results": [
     {
@@ -15,7 +15,7 @@
       "groundedness_rate": 1.0,
       "json_parse_success_rate": 1.0,
       "hallucinated_skills_count": 0,
-      "avg_latency_ms": 8.2,
+      "avg_latency_ms": 8.9,
       "llm_calls_per_run": 0.0
     },
     {
@@ -30,7 +30,7 @@
       "groundedness_rate": 1.0,
       "json_parse_success_rate": 1.0,
       "hallucinated_skills_count": 0,
-      "avg_latency_ms": 33.7,
+      "avg_latency_ms": 32.4,
       "llm_calls_per_run": 0.0
     },
     {
@@ -45,7 +45,7 @@
       "groundedness_rate": 1.0,
       "json_parse_success_rate": 1.0,
       "hallucinated_skills_count": 0,
-      "avg_latency_ms": 33.2,
+      "avg_latency_ms": 31.0,
       "llm_calls_per_run": 0.0
     },
     {
@@ -60,7 +60,7 @@
       "groundedness_rate": 1.0,
       "json_parse_success_rate": 1.0,
       "hallucinated_skills_count": 0,
-      "avg_latency_ms": 123.4,
+      "avg_latency_ms": 104.1,
       "llm_calls_per_run": 1.0
     }
   ]
